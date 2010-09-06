@@ -1,23 +1,27 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class OrQuery extends KTupleQuery{
+public class NearQuery extends KTupleQuery{
     
-    public OrQuery(Query[] cqs){
-        super(cqs);
-    }
+    private int distance;
 
-    public ArrayList<Integer> invertedList(){
+    public NearQuery(Query[] cqs, int dist){
+        super(cqs);
+        distance = dist;
+    }    
+
+    public LinkedList<Integer> invertedList(){
     	PriorityQueue<ArrayList<Integer>> postingsQueue = getPostingsQueue();
     }
 
 	public Query cfold() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	public String toString(){
-		return "OR";
+		return "NEAR";
 	}
 }
