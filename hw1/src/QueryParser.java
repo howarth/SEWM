@@ -33,6 +33,12 @@ public class QueryParser {
 				case 1:
 					queries.add(parseOrQuery());
 					break;
+				case 2:
+					queries.add(parseAndQuery());
+					break;
+				case 3:
+					queries.add(parseNearQuery());
+					break;
 			}
 		}
 		
@@ -48,6 +54,11 @@ public class QueryParser {
 
 		String term = query.substring(position, end_of_term + 1);
 
+		if(term.split("\\.").length == 1){
+			term += ".body";
+		}
+		
+		
 		position = end_of_term;
 		return new TermQuery(term);
 	}
@@ -57,6 +68,17 @@ public class QueryParser {
 		return new OrQuery(getQueryList());
 	}
 	
+	public Query parseAndQuery(){
+		position += 4;
+		return new AndQuery(getQueryList());
+	}
+	
+	public Query parseNearQuery(){
+		int parens_pos = query.indexOf('(', position);
+		int distance = Integer.parseInt(query.substring(position+6, parens_pos));
+		position = parens_pos;
+		return new NearQuery(getQueryList(), distance);
+	}
 	/*
 	 * 0  = term
 	 * 1  = OR

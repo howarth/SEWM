@@ -8,20 +8,25 @@ public class NearQuery extends KTupleQuery{
     
     private int distance;
 
-    public NearQuery(Query[] cqs, int dist){
+    public NearQuery(ArrayList<Query> cqs, int dist){
         super(cqs);
         distance = dist;
     }    
 
-    public LinkedList<Integer> invertedList(){
+    public ArrayList<Integer> invertedList(){
     	PriorityQueue<ArrayList<Integer>> postingsQueue = getPostingsQueue();
+    	return null;
     }
 
 	public Query cfold() {
-		return null;
+		return this;
 	}
 	
 	public String toString(){
-		return "NEAR";
+		String str = "#NEAR/"+distance+"(";
+		for(Query q : getChildQueries()){
+			str += q.toString() + " ";
+		}	
+		return str + ")";
 	}
 }

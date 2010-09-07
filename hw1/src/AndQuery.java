@@ -19,7 +19,7 @@ public class AndQuery extends KTupleQuery {
 		for(int i=0; i<childQueries.size(); i++){
 			 childQueries.set(i, childQueries.get(i).cfold());
 			 if(childQueries.get(i) instanceof AndQuery){
-				 childQueries.addAll(((OrQuery) childQueries.remove(i)).getChildQueries());
+				 childQueries.addAll(((AndQuery) childQueries.remove(i)).getChildQueries());
 				 i--;
 			 }
 		}
