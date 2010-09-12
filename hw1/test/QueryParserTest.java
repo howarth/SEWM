@@ -13,6 +13,7 @@ public class QueryParserTest {
 	public void setUp() throws Exception {
 		_qp = new QueryParser(null);
 	}
+	
 	@Test
 	public void noOperatorTest(){
 		testQuery("one", "one.body");
@@ -46,7 +47,6 @@ public class QueryParserTest {
 		testQuery("one.title two #AND(sup pup.title yup) #OR(three #AND(four #AND(five)))",
 				  "#OR(one.title two.body #AND(sup.body pup.title yup.body ) three.body #AND(four.body five.body ) )");
 	}
-	
 	
 	/* Helper methods */
 	public void testQuery(String query, String expected){
