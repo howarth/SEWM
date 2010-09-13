@@ -23,6 +23,12 @@ public class InvertedListParser {
 		stok.parseNumbers();
 		
 		stok.nextToken();
+		
+		/* If file is of size 0 */
+		if(stok.ttype == StreamTokenizer.TT_EOF){
+			return null;
+		}
+		
 		while(stok.ttype != StreamTokenizer.TT_NUMBER){
 			stok.nextToken();
 		}

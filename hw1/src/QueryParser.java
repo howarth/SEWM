@@ -86,7 +86,7 @@ public class QueryParser {
 		}
 		
 		position = end_of_term +1;
-		System.out.println("S "+end_of_term);
+
 		if(stopWords.contains(term.split("\\.")[0]))
 			return null;
 

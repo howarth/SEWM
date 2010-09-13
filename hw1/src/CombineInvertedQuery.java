@@ -14,8 +14,12 @@ public abstract class CombineInvertedQuery extends KTupleQuery{
 		PriorityQueue<InvertedList> postingsQueue = 
 			new PriorityQueue<InvertedList>(childQueries.size(), new ListComparator());
 		
+		InvertedList invlist;
 		for(int i=0; i<childQueries.size(); i++){
-			postingsQueue.offer((InvertedList) childQueries.get(i).invertedList());
+			invlist = (InvertedList) childQueries.get(i).invertedList();
+			if(invlist != null){
+				postingsQueue.offer((InvertedList) childQueries.get(i).invertedList());
+			}
 		}
 		return postingsQueue;
 	}

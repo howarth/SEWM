@@ -14,7 +14,8 @@ public class AndQuery extends CombineScoreQuery {
 		ArrayList<Query> childQueries = getChildQueries();
 		
 		if(childQueries.size() == 1){
-			return childQueries.get(0).cfold();
+			if(!(childQueries.get(0) instanceof TermQuery))
+				return childQueries.get(0).cfold();
 		}
 		
 		for(int i=0; i<childQueries.size(); i++){

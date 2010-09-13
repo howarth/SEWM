@@ -16,7 +16,7 @@ public class QueryParserTest {
 	
 	@Test
 	public void noOperatorTest(){
-		testQuery("one", "one.body");
+		testQuery("one", "#OR(one.body )");
 		testQuery("one.title two three", "#OR(one.title two.body three.body )");
 	}
 	
@@ -30,9 +30,9 @@ public class QueryParserTest {
 	
 	@Test
 	public void cFoldOnlyAndTest(){
-		testQuery("#AND(one.title)", "one.title");
+		testQuery("#AND(one.title)", "#AND(one.title )");
 		testQuery("#AND(one.body #AND(two #AND(three.title) four))",
-				  "#AND(one.body two.body three.title four.body )");
+				  "#AND(one.body two.body four.body three.title )");
 	}
 	
 	@Test

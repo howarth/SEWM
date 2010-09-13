@@ -15,10 +15,14 @@ public abstract class CombineScoreQuery extends KTupleQuery{
 		PriorityQueue<ScoreList> postingsQueue = 
 			new PriorityQueue<ScoreList>(childQueries.size(), new ListComparator());
 		
+		InvertedList invlist;
 		for(int i=0; i<childQueries.size(); i++){
 			childQuery = childQueries.get(i);
 			if(childQuery instanceof TermQuery){
-				postingsQueue.offer(ScoreList.convertInvertedList(childQuery.invertedList()));
+				invlist = (InvertedList) childQueries.get(i).invertedList();
+				if(invlist != null){
+					postingsQueue.offer(ScoreList.convertInvertedList(invlist));
+				}
 			} else {
 				postingsQueue.offer((ScoreList) childQuery.invertedList());
 			}
