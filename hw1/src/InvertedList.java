@@ -1,7 +1,7 @@
 package src;
 import java.util.ArrayList;
 
-public class InvertedList extends ArrayList<Integer> {
+public class InvertedList extends QueryList {
 
 	public InvertedList(){
 		super();

@@ -37,7 +37,7 @@ public class QueryParserTest {
 	
 	@Test
 	public void cFoldOnlyNearTest(){
-		testQuery("#NEAR/2(one two)", "#NEAR/2(one.body two.body )");
+		testQuery("#NEAR/2(on5 two)", "#NEAR/2(one.body two.body )");
 		testQuery("#NEAR/245(one two)", "#NEAR/245(one.body two.body )");
 		testQuery("#NEAR/25(one two #NEAR/2(one.body two.body))",
 				  "#NEAR/25(one.body two.body #NEAR/2(one.body two.body ) )");

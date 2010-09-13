@@ -1,5 +1,6 @@
 package src;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TermQuery implements Query {
@@ -15,9 +16,8 @@ public class TermQuery implements Query {
 		return this;
 	}
 
-	public ArrayList<Integer> invertedList() {
-		// TODO Auto-generated method stub
-		return null;
+	public InvertedList invertedList() throws IOException {
+		return InvertedListParser.getInvertedList(term);
 	}
 	
     public String toString(){

@@ -15,8 +15,8 @@ public class InvertedListParser {
 		this.folder = folder;
 	}
 	
-	public static void getInvertedList(String term) throws IOException{
-		FileReader file = new FileReader("/Users/danielhowarth/classes/f10/11441/hw1/invlists-t/" + term);
+	public static InvertedList getInvertedList(String term) throws IOException{
+		FileReader file = new FileReader("/Users/danielhowarth/classes/f10/11441/hw1/invlists-s/" + term + ".inv");
 		Reader stream = new BufferedReader(file);
 		
 		StreamTokenizer stok = new StreamTokenizer(stream);
@@ -28,7 +28,7 @@ public class InvertedListParser {
 		}
 		
 		int ctf = (int) stok.nval;
-		System.out.println(ctf);
+
 		stok.nextToken();
 		int df = 0;
 		
@@ -39,7 +39,7 @@ public class InvertedListParser {
 		invertedList.add(null);
 		int tf;
 		
-		while(stok.ttype != StreamTokenizer.TT_EOF || stok.ttype == StreamTokenizer.TT_NUMBER){
+		while(stok.ttype != StreamTokenizer.TT_EOF && stok.ttype == StreamTokenizer.TT_NUMBER){
 			/* Eat up each docid */
 			invertedList.add((int)stok.nval);
 			
@@ -50,7 +50,6 @@ public class InvertedListParser {
 			stok.nextToken();
 			
 			tf = (int) stok.nval;
-			System.out.println("TF " + tf);
 			invertedList.add(tf);
 			
 			for(int i=0; i<tf; i++){
@@ -63,11 +62,12 @@ public class InvertedListParser {
 		}		
 		
 		invertedList.set(0, df - 1);
-		System.out.println(invertedList);
+		System.out.println(invertedList.size());
+		return invertedList;
 	}
 	
 	public static void main(String args[]) throws IOException{
-		getInvertedList("howarth.body.inv");
+		getInvertedList("family.body");
 	}
 	
 }

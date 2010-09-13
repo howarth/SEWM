@@ -1,20 +1,21 @@
 package src;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class NearQuery extends KTupleQuery{
+public class NearQuery extends BinaryQuery{
     
     private int distance;
 
-    public NearQuery(ArrayList<Query> cqs, int dist){
-        super(cqs);
+    public NearQuery(Query first, Query second, int dist){
+        super(first, second);
         distance = dist;
     }    
 
-    public ArrayList<Integer> invertedList(){
-    	PriorityQueue<ArrayList<Integer>> postingsQueue = getPostingsQueue();
+    public QueryList invertedList() throws IOException{
+    	
     	return null;
     }
 
@@ -24,9 +25,7 @@ public class NearQuery extends KTupleQuery{
 	
 	public String toString(){
 		String str = "#NEAR/"+distance+"(";
-		for(Query q : getChildQueries()){
-			str += q.toString() + " ";
-		}	
-		return str + ")";
+		str += first +" "+second;
+		return str + " )";
 	}
 }

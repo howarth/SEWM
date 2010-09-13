@@ -1,14 +1,35 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class QueryParser {
 	
 	private String query;
 	private int position;
 	
+	private HashSet<String> stopWords = new HashSet<String>();
+	
 	public QueryParser(String q){
 		newQuery(q);
+		stopWords.add("a");
+		stopWords.add("an");
+		stopWords.add("and");
+		stopWords.add("are");
+		stopWords.add("as");
+		stopWords.add("at");
+		stopWords.add("for");
+		stopWords.add("i");
+		stopWords.add("if");
+		stopWords.add("in");
+		stopWords.add("is");
+		stopWords.add("it");
+		stopWords.add("of");
+		stopWords.add("on");
+		stopWords.add("so");
+		stopWords.add("that");
+		stopWords.add("the");
+		stopWords.add("to");
 	}
 	
 	public void newQuery(String q){
@@ -25,10 +46,12 @@ public class QueryParser {
 	public ArrayList<Query> getQueryList(){
 		ArrayList<Query> queries = new ArrayList<Query>();
 		int type;
+		String term;
 		while((type = getNextType()) != -1){
 			switch(type){
 				case 0:
-					queries.add(parseTermQuery());
+					if( (term = nextTerm()) != null)
+						queries.add(parseTermQuery(term));
 					break;
 				case 1:
 					queries.add(parseOrQuery());
@@ -45,7 +68,11 @@ public class QueryParser {
 		return queries;
 	}
 	
-	public Query parseTermQuery(){
+	public Query parseTermQuery(String term){
+		return new TermQuery(term);
+	}
+	
+	public String nextTerm(){
 		int end_of_term = nextSpacePos() - 1;
 		
 		if(end_of_term < 0){
@@ -58,9 +85,12 @@ public class QueryParser {
 			term += ".body";
 		}
 		
-		
-		position = end_of_term;
-		return new TermQuery(term);
+		position = end_of_term +1;
+		System.out.println("S "+end_of_term);
+		if(stopWords.contains(term.split("\\.")[0]))
+			return null;
+
+		return term;
 	}
 	
 	public Query parseOrQuery(){
@@ -76,8 +106,11 @@ public class QueryParser {
 	public Query parseNearQuery(){
 		int parens_pos = query.indexOf('(', position);
 		int distance = Integer.parseInt(query.substring(position+6, parens_pos));
-		position = parens_pos;
-		return new NearQuery(getQueryList(), distance);
+		position = parens_pos + 1;
+		
+		String first = nextTerm();
+		String second = nextTerm();
+		return new NearQuery(new TermQuery(first), new TermQuery(second), distance);
 	}
 	/*
 	 * 0  = term
