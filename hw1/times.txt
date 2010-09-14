@@ -1,0 +1,7 @@
+Before optimization
+	or query
+		1000	1m30s
+	and query
+		1000	1m15s
+	near query
+		1000	1m20s
