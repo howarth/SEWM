@@ -13,7 +13,6 @@ public class OrQuery extends CombineScoreQuery{
 	public Query cfold() {
 		ArrayList<Query> childQueries = getChildQueries();
 		
-		System.out.println(childQueries);
 		if(childQueries.size() == 1){
 			if(!(childQueries.get(0) instanceof TermQuery))
 				return childQueries.get(0).cfold();

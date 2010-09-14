@@ -12,6 +12,7 @@ public class QueryParser {
 	
 	public QueryParser(String q){
 		newQuery(q);
+		/* This is bad. */
 		stopWords.add("a");
 		stopWords.add("an");
 		stopWords.add("and");
@@ -85,7 +86,7 @@ public class QueryParser {
 			term += ".body";
 		}
 		
-		position = end_of_term +1;
+		position = end_of_term + 1;
 
 		if(stopWords.contains(term.split("\\.")[0]))
 			return null;
@@ -105,10 +106,12 @@ public class QueryParser {
 	
 	public Query parseNearQuery(){
 		int parens_pos = query.indexOf('(', position);
+
 		int distance = Integer.parseInt(query.substring(position+6, parens_pos));
 		position = parens_pos + 1;
 		
 		String first = nextTerm();
+		getNextType();
 		String second = nextTerm();
 		return new NearQuery(new TermQuery(first), new TermQuery(second), distance);
 	}

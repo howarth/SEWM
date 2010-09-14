@@ -37,15 +37,14 @@ public class QueryParserTest {
 	
 	@Test
 	public void cFoldOnlyNearTest(){
-		testQuery("#NEAR/2(on5 two)", "#NEAR/2(one.body two.body )");
+		testQuery("#NEAR/2(one two)", "#NEAR/2(one.body two.body )");
 		testQuery("#NEAR/245(one two)", "#NEAR/245(one.body two.body )");
-		testQuery("#NEAR/25(one two #NEAR/2(one.body two.body))",
-				  "#NEAR/25(one.body two.body #NEAR/2(one.body two.body ) )");
 	}
 	
 	@Test public void combinedTest(){
 		testQuery("one.title two #AND(sup pup.title yup) #OR(three #AND(four #AND(five)))",
 				  "#OR(one.title two.body #AND(sup.body pup.title yup.body ) three.body #AND(four.body five.body ) )");
+		testQuery("obama #NEAR/4(family tree )", "#OR(obama.body #NEAR/4(family.body tree.body ) )");
 	}
 	
 	/* Helper methods */

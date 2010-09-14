@@ -12,7 +12,7 @@ public class TrecEvalWriter {
 	String runId;
 	
 	public TrecEvalWriter(String output, String rId, int numReturn) throws FileNotFoundException{
-		FileOutputStream out = new FileOutputStream(output);
+		FileOutputStream out = new FileOutputStream("results/" + output);
 		p = new PrintStream(out);
 		runId = rId;
 		this.numReturn = numReturn;
@@ -20,7 +20,7 @@ public class TrecEvalWriter {
 	
 	public void writeQuery(String query, ScoreList list){
 		String format = "%s\t %s\t %d\t %d\t 1.0\t %s\n";
-		System.out.println("Returned DF: " + list.df());
+		//System.out.println("Returned DF: " + list.df());
 		for(int i=list.df()-1; i>=0 && i>=list.df()-numReturn; i--){
 			p.printf(format, query, "Q0", list.getDocId(i), list.df()-i, "run-1");
 		}

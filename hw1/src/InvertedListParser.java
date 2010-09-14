@@ -68,7 +68,7 @@ public class InvertedListParser {
 		}		
 		
 		invertedList.set(0, df - 1);
-		System.out.println(invertedList.size());
+		//System.out.println(invertedList.size());
 		return invertedList;
 	}
 	

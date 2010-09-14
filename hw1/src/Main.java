@@ -19,8 +19,9 @@ public class Main {
 		
 		while( (line = stream.readLine()) != null){
 			query = line.split(":");
+
 			qp.newQuery(query[1]);
-			System.out.println("Query: "+ query[1]);
+			//System.out.println("Query:          "+ query[1]);
 			q = qp.getQuery();
 			q = q.cfold();
 
